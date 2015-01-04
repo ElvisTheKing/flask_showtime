@@ -8,4 +8,4 @@ app.config.from_object('config')
 db = SQLAlchemy(app)
 admin = Admin(app, name = "Showtime")
 
-from app import models,admin_views
+from app import models,admin_views,views
