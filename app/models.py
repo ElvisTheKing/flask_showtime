@@ -27,3 +27,10 @@ class Episode(db.Model):
 
     def search_string(self):
         return "%s S%02dE%02d" %(self.show.name,self.season,self.episode)
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    email = db.Column(db.String(256))
+    oauth_token = db.Column(db.String(256))
+    oauth_secret = db.Column(db.String(256))
+    is_admin = db.Column(db.Boolean())
