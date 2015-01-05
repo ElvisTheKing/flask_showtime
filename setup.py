@@ -17,6 +17,7 @@ setup(
     ],
     entry_points = {
         'console_scripts': [
+            "showtime_manage = showtime.tasks:manager.run"
         ]
     },
     package_data={
