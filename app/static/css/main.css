@@ -32,3 +32,9 @@ li.future_event .searches a{
     margin-left: 0.5em;
     margin-right: 0.5em;
 }
+
+#user_links {
+position: absolute;
+right: 0px;
+font-size: small;
+}
