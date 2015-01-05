@@ -1,7 +1,7 @@
 from flask import render_template
 from flask.ext.login import current_user
-from app import app
-from app.models import Episode
+from showtime import app
+from showtime.models import Episode
 
 @app.route('/')
 @app.route('/index')

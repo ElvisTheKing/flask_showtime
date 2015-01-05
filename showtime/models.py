@@ -1,4 +1,4 @@
-from app import db
+from showtime import db
 from sqlalchemy import desc
 from sqlalchemy.ext.hybrid import hybrid_property
 from datetime import date

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
-from app import app,db
+from showtime import app,db
 from sqlalchemy.exc import IntegrityError
 
 app.debug=True

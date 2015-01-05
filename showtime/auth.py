@@ -1,8 +1,8 @@
 from flask import Flask, redirect, url_for, session, request
 from flask_oauthlib.client import OAuth, OAuthException
 from flask.ext.login import login_user,logout_user,login_required,current_user
-from app import app,login_manager,db
-from app.models import User
+from showtime import app,login_manager,db
+from showtime.models import User
 
 @login_manager.user_loader
 def load_user(userid):

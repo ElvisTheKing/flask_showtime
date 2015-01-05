@@ -1,4 +1,4 @@
-from app import db,models,app
+from showtime import db,models,app
 from flask import redirect,abort,url_for
 from flask.ext.admin import Admin,BaseView,expose,AdminIndexView
 from flask.ext.admin.contrib.sqla import ModelView
