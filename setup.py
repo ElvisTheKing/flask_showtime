@@ -1,8 +1,8 @@
 from setuptools import setup
 setup(
     name='Showtime',
-    version='0.1',
-    packages=['showtime'],
+    version='0.1.1',
+    packages=['showtime','migrations'],
     include_package_data=True,
     zip_safe=False,
     install_requires=[
