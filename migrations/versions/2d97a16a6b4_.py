@@ -42,6 +42,8 @@ def upgrade():
     sa.ForeignKeyConstraint(['show_id'], ['show.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+
+    op.create_index("uq_show_id_season_episode","episode",["show_id","season","episode"], unique = True)
     ### end Alembic commands ###
 
 
