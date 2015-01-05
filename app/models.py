@@ -2,6 +2,7 @@ from app import db
 from sqlalchemy import desc
 from sqlalchemy.ext.hybrid import hybrid_property
 from datetime import date
+from flask.ext.login import UserMixin
 
 class Show(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -28,8 +29,9 @@ class Episode(db.Model):
     def search_string(self):
         return "%s S%02dE%02d" %(self.show.name,self.season,self.episode)
 
-class User(db.Model):
+class User(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key = True)
+    remote_id = db.Column(db.String(256))
     email = db.Column(db.String(256))
     oauth_token = db.Column(db.String(256))
     oauth_secret = db.Column(db.String(256))

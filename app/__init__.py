@@ -1,11 +1,14 @@
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.admin import Admin
+from flask.ext.login import LoginManager
 
 app = Flask(__name__)
 app.config.from_object('config')
 
 db = SQLAlchemy(app)
-admin = Admin(app, name = "Showtime")
+from app.admin_views import admin
 
-from app import models,admin_views,views
+login_manager = LoginManager(app)
+
+
+from app import models,admin_views,views,auth
