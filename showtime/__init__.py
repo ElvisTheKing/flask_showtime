@@ -2,9 +2,13 @@ from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from flask.ext.script import Manager
+from os import getcwd
 
 app = Flask(__name__)
-app.config.from_object('config')
+try:
+    app.config.from_envvar('SHOWTIME_SETTINGS')
+except RuntimeError:
+    app.config.from_object('config')
 
 db = SQLAlchemy(app)
 from showtime.admin_views import admin
