@@ -6,8 +6,8 @@ from flask.ext.login import UserMixin
 
 class Show(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String(128))
-    remote_id = db.Column(db.String(64), index = True, unique = True)
+    name = db.Column(db.String(128), nullable = False)
+    remote_id = db.Column(db.String(64), index = True, unique = True, nullable = False)
     episodes = db.relationship('Episode',backref = 'show')
 
 class Episode(db.Model):
