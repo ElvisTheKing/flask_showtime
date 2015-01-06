@@ -2,6 +2,7 @@ from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from flask.ext.script import Manager
+from flask_debugtoolbar import DebugToolbarExtension
 from os import getcwd
 
 app = Flask(__name__)
@@ -16,5 +17,7 @@ from showtime.admin_views import admin
 login_manager = LoginManager(app)
 
 manager = Manager(app)
+
+toolbar = DebugToolbarExtension(app)
 
 from showtime import models,admin_views,views,auth,tasks
