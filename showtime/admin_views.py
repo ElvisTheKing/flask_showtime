@@ -25,7 +25,6 @@ class ShowView(AuthModelView):
         rules.Container('wrap', rules.Field('name')),
         'remote_id'
     )
-    form_edit_rules = form_create_rules
 
     create_template = 'admin/show_create.html'
 
