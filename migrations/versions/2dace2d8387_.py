@@ -1,13 +1,13 @@
 """empty message
 
-Revision ID: 2d97a16a6b4
+Revision ID: 2dace2d8387
 Revises: None
-Create Date: 2015-01-05 22:42:23.326399
+Create Date: 2015-01-06 16:15:31.182692
 
 """
 
 # revision identifiers, used by Alembic.
-revision = '2d97a16a6b4'
+revision = '2dace2d8387'
 down_revision = None
 
 from alembic import op
@@ -20,8 +20,6 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('remote_id', sa.String(length=256), nullable=True),
     sa.Column('email', sa.String(length=256), nullable=True),
-    sa.Column('oauth_token', sa.String(length=256), nullable=True),
-    sa.Column('oauth_secret', sa.String(length=256), nullable=True),
     sa.Column('is_admin', sa.Boolean(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
@@ -42,7 +40,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['show_id'], ['show.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-
     op.create_index("uq_show_id_season_episode","episode",["show_id","season","episode"], unique = True)
     ### end Alembic commands ###
 

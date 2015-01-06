@@ -33,6 +33,4 @@ class User(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key = True)
     remote_id = db.Column(db.String(256))
     email = db.Column(db.String(256))
-    oauth_token = db.Column(db.String(256))
-    oauth_secret = db.Column(db.String(256))
     is_admin = db.Column(db.Boolean())
