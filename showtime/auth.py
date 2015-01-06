@@ -59,9 +59,6 @@ def facebook_authorized():
     user = User.query.filter(User.remote_id == me.data['id']).first()
     if not user:
         user = User(remote_id=me.data['id'])
-        if User.query.count==0:
-            user.is_admin = True
-
 
     user.email = me.data['email']
     db.session.add(user)
