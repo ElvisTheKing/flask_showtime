@@ -31,7 +31,7 @@ class ShowView(AuthModelView):
 @app.route('/admin/show/autocomplete/<query>.json')
 @login_required
 def autocomplete(query):
-    shows = tvdb_api.search(query,'en')
+    shows = tvdb_api.search(query,'all')
     items = map(lambda s: {"name": s.SeriesName, "id": s.seriesid, "info": s.Overview[0:150] if hasattr(s,'Overview') else ""},shows)
 
     return jsonify(items = list(items))
