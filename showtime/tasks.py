@@ -1,5 +1,4 @@
 from showtime import app,db,manager
-from sqlalchemy.exc import IntegrityError
 from flask.ext.migrate import Migrate, MigrateCommand
 
 migrate = Migrate(app, db)

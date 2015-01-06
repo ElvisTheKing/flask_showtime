@@ -3,6 +3,7 @@ from sqlalchemy import desc
 from sqlalchemy.ext.hybrid import hybrid_property
 from datetime import date
 from flask.ext.login import UserMixin
+from sqlalchemy.exc import IntegrityError
 
 class Show(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -22,7 +23,7 @@ class Show(db.Model):
                     "episode": api_episode.EpisodeNumber,
                     "show_id": self.id,
                     "name": api_episode.EpisodeName,
-                    "air_date": api_episode.FirstAired
+                    "air_date": api_episode.FirstAired or None
                 }
 
                 episode = Episode(**d)
