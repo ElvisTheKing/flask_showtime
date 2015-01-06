@@ -23,7 +23,9 @@
             <li {% if episode.is_in_future()%}class="future_event"{%endif%}>
                 <span class="release_date">{{episode.air_date}}</span>
                 <span class="searches">
+                    {% if not user.is_anonymous() and user.can_view_links%}
                     <a href="http://thepiratebay.cr/search/{{episode.search_string()}}/0/7/0">Arrr!</a>
+                    {% endif %}
                 </span>
                 <span class="event_title">{{episode.show.name}}</span>
                 :

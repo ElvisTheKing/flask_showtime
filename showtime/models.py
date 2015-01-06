@@ -34,3 +34,4 @@ class User(UserMixin,db.Model):
     remote_id = db.Column(db.String(256))
     email = db.Column(db.String(256))
     is_admin = db.Column(db.Boolean())
+    can_view_links = db.Column(db.Boolean())
