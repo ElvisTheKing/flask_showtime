@@ -1,0 +1,42 @@
+{% extends 'admin/model/create.html' %}
+{% block tail %}
+    {{ super() }}
+    <script type="text/javascript" src="{{url_for('static', filename='typeahead.js/dist/typeahead.bundle.min.js') }}"></script>
+
+
+    <script type="text/javascript">
+        $(function() {
+            var shows = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/admin/show/autocomplete/%QUERY.json',
+                    filter: function(resp) { return resp.items; }
+                }
+            });
+
+            shows.initialize();
+            $('#name').typeahead({minLength: 3},{
+                name: 'shows',
+                displayKey: 'name',
+                source: shows.ttAdapter(),
+                templates: {
+                    suggestion: function(context) {
+                        return "<div><p><strong>"+context['name'] + "</strong></p>"+context['info']+"</div>";
+                    }
+                }
+            });
+
+            $("#name").bind('typeahead:selected', function(obj, datum, name) {
+                $("#remote_id").val(datum.id);
+            });
+        });
+    </script>
+
+    <link rel="stylesheet" href="{{url_for('static',filename='css/typeahead.css')}}" type="text/css">
+{% endblock %}
+
+
+{% macro wrap() %}
+    {{ caller() }}
+{% endmacro %}
