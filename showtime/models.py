@@ -1,4 +1,4 @@
-from showtime import db
+from showtime import db,tvdb_api
 from sqlalchemy import desc
 from sqlalchemy.ext.hybrid import hybrid_property
 from datetime import date
@@ -9,6 +9,44 @@ class Show(db.Model):
     name = db.Column(db.String(128), nullable = False)
     remote_id = db.Column(db.String(64), index = True, unique = True, nullable = False)
     episodes = db.relationship('Episode',backref = 'show')
+
+    def update_episodes(self):
+        api_show = tvdb_api.get_series(self.remote_id,'en')
+
+        created = []
+        updated = []
+        for api_season in api_show:
+            for api_episode in api_season:
+                d = {
+                    "season": api_season.season_number,
+                    "episode": api_episode.EpisodeNumber,
+                    "show_id": self.id,
+                    "name": api_episode.EpisodeName,
+                    "air_date": api_episode.FirstAired
+                }
+
+                episode = Episode(**d)
+
+                try:
+                    db.session.add(episode)
+                    db.session.commit()
+                    created.append(episode)
+                except IntegrityError:
+                    db.session.rollback()
+
+                    episode = Episode.query.filter(
+                        Episode.season == d['season'],
+                        Episode.episode == d['episode'],
+                        Episode.show_id == d['show_id']
+                    ).first()
+
+                    episode.name = d['name']
+                    episode.air_date  = d['air_date']
+                    if db.session.is_modified(episode):
+                        db.session.commit()
+                        updated.append(episode)
+
+        return (created,updated)
 
 class Episode(db.Model):
     id = db.Column(db.Integer, primary_key = True)
