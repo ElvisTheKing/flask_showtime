@@ -1,7 +1,8 @@
 {% extends 'admin/model/create.html' %}
 {% block tail %}
     {{ super() }}
-    <script type="text/javascript" src="{{url_for('static', filename='typeahead.js/dist/typeahead.bundle.min.js') }}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/typeahead.bundle.min.js') }}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/spin.min.js') }}"></script>
 
 
     <script type="text/javascript">
@@ -9,6 +10,7 @@
             var shows = new Bloodhound({
                 datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
+                rateLimitWait: 0,
                 remote: {
                     url: '/admin/show/autocomplete/%QUERY.json',
                     filter: function(resp) { return resp.items; }
@@ -29,6 +31,24 @@
 
             $("#name").bind('typeahead:selected', function(obj, datum, name) {
                 $("#remote_id").val(datum.id);
+            });
+
+            spinner = new Spinner({
+                lines: 8, // The number of lines to draw
+                length: 0, // The length of each line
+                width: 4, // The line thickness
+                radius: 8,
+                hwaccel: true,
+                left: '90%'
+            }).spin();
+
+
+            $(document).ajaxSend(function(event, jqXHR, settings) {
+                $('#name').parent().append(spinner.el);
+            });
+
+            $(document).ajaxComplete(function(event, jqXHR, settings) {
+                spinner.stop();
             });
         });
     </script>
