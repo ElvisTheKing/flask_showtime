@@ -8,3 +8,15 @@ from showtime.models import Episode
 def index():
     episodes = Episode.recent().all()
     return render_template('index.html', episodes = episodes, user = current_user)
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('error.html'), 404
+
+@app.errorhandler(403)
+def page_not_found(e):
+    return render_template('error.html'), 403
+
+@app.errorhandler(500)
+def page_not_found(e):
+    return render_template('error.html'), 500
