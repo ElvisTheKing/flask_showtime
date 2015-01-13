@@ -22,5 +22,9 @@ toolbar = DebugToolbarExtension(app)
 
 tvdb_api = tvdb.TVDB(app.config.get("TVDB_API_KEY"))
 
+@app.after_request
+def after_request(response):
+    response.headers.add('X-Stage', 'Denial')
+    return response
 
 from showtime import models,admin_views,views,auth,tasks
