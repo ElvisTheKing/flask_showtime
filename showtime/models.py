@@ -1,7 +1,7 @@
 from showtime import db,tvdb_api
 from sqlalchemy import desc
 from sqlalchemy.ext.hybrid import hybrid_property
-from datetime import date,datetime
+from datetime import date,datetime,timedelta
 from flask.ext.login import UserMixin
 from sqlalchemy.exc import IntegrityError
 
@@ -11,6 +11,10 @@ class Show(db.Model):
     remote_id = db.Column(db.String(64), index = True, unique = True, nullable = False)
     episodes = db.relationship('Episode',backref = 'show')
     updated_at = db.Column(db.DateTime)
+
+    @classmethod
+    def updatable(cls):
+        return cls.query.filter((cls.updated_at<=datetime.now()-timedelta(days=1))|(cls.updated_at == None))
 
     def update_episodes(self):
         api_show = tvdb_api().get_series(self.remote_id,'en')
@@ -53,6 +57,9 @@ class Show(db.Model):
         db.session.commit()
 
         return (created,updated)
+
+    def __repr__(self):
+        return "<%s>%s"%(self.__class__,self.name)
 
 class Episode(db.Model):
     id = db.Column(db.Integer, primary_key = True)

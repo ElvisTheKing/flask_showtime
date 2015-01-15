@@ -9,7 +9,7 @@ def update():
     "Download and update show episodes"
     from showtime.models import Episode,Show
 
-    for show in Show.query.all():
+    for show in Show.updatable().all():
         print('working on '+show.name)
         created,updated = show.update_episodes()
 
