@@ -71,8 +71,9 @@ class Episode(db.Model):
 
     db.UniqueConstraint(show_id,season,episode)
 
-    def recent():
-        return Episode.query.order_by(desc(Episode.air_date)).limit(50)
+    @classmethod
+    def recent(cls):
+        return cls.query.order_by(desc(cls.air_date)).limit(50)
 
     def is_in_future(self):
         return (self.air_date >= date.today())
