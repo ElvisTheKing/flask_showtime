@@ -20,7 +20,7 @@ manager = Manager(app)
 
 toolbar = DebugToolbarExtension(app)
 
-tvdb_api = tvdb.TVDB(app.config.get("TVDB_API_KEY"))
+tvdb_api = lambda :tvdb.TVDB(app.config.get("TVDB_API_KEY"))
 
 @app.after_request
 def after_request(response):

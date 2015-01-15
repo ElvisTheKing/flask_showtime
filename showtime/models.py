@@ -10,9 +10,10 @@ class Show(db.Model):
     name = db.Column(db.String(128), nullable = False)
     remote_id = db.Column(db.String(64), index = True, unique = True, nullable = False)
     episodes = db.relationship('Episode',backref = 'show')
+    updated_at = db.Column(db.DateTime)
 
     def update_episodes(self):
-        api_show = tvdb_api.get_series(self.remote_id,'en')
+        api_show = tvdb_api().get_series(self.remote_id,'en')
 
         created = []
         updated = []
