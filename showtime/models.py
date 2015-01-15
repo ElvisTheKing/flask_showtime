@@ -1,7 +1,7 @@
 from showtime import db,tvdb_api
 from sqlalchemy import desc
 from sqlalchemy.ext.hybrid import hybrid_property
-from datetime import date
+from datetime import date,datetime
 from flask.ext.login import UserMixin
 from sqlalchemy.exc import IntegrityError
 
@@ -47,6 +47,10 @@ class Show(db.Model):
                     if db.session.is_modified(episode):
                         db.session.commit()
                         updated.append(episode)
+
+        self.updated_at = datetime.now()
+        db.session.add(self)
+        db.session.commit()
 
         return (created,updated)
 
