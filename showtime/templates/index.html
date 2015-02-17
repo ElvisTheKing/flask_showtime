@@ -24,7 +24,7 @@
                 <span class="release_date">{{episode.air_date}}</span>
                 <span class="searches">
                     {% if not user.is_anonymous() and user.can_view_links%}
-                    <a href="http://thepiratebay.cr/search/{{episode.search_string()}}/0/7/0">T</a>
+                    <a href="http://thepiratebay.se/search/{{episode.search_string()}}/0/7/0">T</a>
                     <a href="http://kickass.so/usearch/{{episode.search_string()}}/?field=seeders&sorder=desc">K</a>
                     {% endif %}
                 </span>
