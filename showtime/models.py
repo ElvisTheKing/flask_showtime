@@ -9,7 +9,7 @@ class Show(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(128), nullable = False)
     remote_id = db.Column(db.String(64), index = True, unique = True, nullable = False)
-    episodes = db.relationship('Episode',backref = 'show')
+    episodes = db.relationship('Episode',backref = 'show', cascade="all, delete-orphan")
     updated_at = db.Column(db.DateTime)
 
     @classmethod
