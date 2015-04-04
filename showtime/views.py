@@ -7,7 +7,8 @@ from showtime.models import Episode
 @app.route('/index')
 def index():
     episodes = Episode.recent().all()
-    return render_template('index.html', episodes = episodes, user = current_user)
+    sources = app.config.get("SOURCES")
+    return render_template('index.html', episodes = episodes, user = current_user, sources = sources)
 
 @app.errorhandler(404)
 def page_not_found(e):
